@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="de" data-color-mode="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLEAR-4 KMU – Template</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="brand-title">Ihr KMU</div>
+      <div class="brand-sub">Klare Website. Ruhiges Design.</div>
+    </div>
+
+    <!-- Farbwelt + Dark Mode Umschalter -->
+    <div class="controls">
+      <select id="palette-select" aria-label="Farbwelt wählen" class="palette-picker">
+        <option value="handwerk">Handwerk / Holz / Metall</option>
+        <option value="detailhandel">Detailhandel / Garagen</option>
+        <option value="gastro">Gastronomie</option>
+        <option value="service">Reinigung / Services</option>
+        <option value="industrie">Industrie</option>
+        <option value="praxis">Praxis / Gesundheit</option>
+        <option value="landwirtschaft">Landwirtschaft / Hofläden</option>
+      </select>
+
+      <button id="mode-light" class="mode-btn current">☀️</button>
+      <button id="mode-dark" class="mode-btn">🌙</button>
+    </div>
+
+    <button class="nav-toggle" aria-label="Menü öffnen">☰</button>
+
+    <nav class="nav-main">
+      <button class="nav-item current" data-target="#start">Start</button>
+      <button class="nav-item" data-target="#leistungen">Leistungen</button>
+      <button class="nav-item" data-target="#ueber-uns">Über uns</button>
+      <button class="nav-item" data-target="#kontakt">Kontakt</button>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section id="start" class="hero">
+      <div class="hero-label">CLEAR-4 · KMU</div>
+      <h1>Ruhige, klare Webseiten für lokale Unternehmen.</h1>
+      <p>
+        Dieses neutrale Template ist bereit für jede Branche. Die Farbwelt kannst du oben
+        jederzeit wechseln. Auch ein Soft-Dark-Mode steht bereit.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-target="#kontakt">Anfrage stellen</button>
+        <button class="btn btn-ghost" data-target="#leistungen">Leistungen ansehen</button>
+      </div>
+    </section>
+
+    <section id="leistungen" class="section">
+      <header class="section-header">
+        <div class="section-label">Angebot</div>
+        <h2 class="section-title">Leistungen & Produkte</h2>
+      </header>
+
+      <div class="section-grid cols-3">
+        <article class="card"><h3>Leistung A</h3><p>Kurzbeschreibung des Angebots.</p></article>
+        <article class="card"><h3>Leistung B</h3><p>Ruhige, verständliche Informationen.</p></article>
+        <article class="card"><h3>Leistung C</h3><p>Optionaler Service oder Zusatzangebot.</p></article>
+      </div>
+    </section>
+
+    <section id="ueber-uns" class="section">
+      <header class="section-header">
+        <div class="section-label">Unternehmen</div>
+        <h2 class="section-title">Über uns</h2>
+      </header>
+
+      <div class="section-grid cols-2">
+        <article class="card"><h3>Wer wir sind</h3><p>Beschreibung des Unternehmens.</p></article>
+        <article class="card"><h3>Werte & Arbeitsweise</h3><p>Klar, ruhig, kundenorientiert.</p></article>
+      </div>
+    </section>
+
+    <section id="kontakt" class="section">
+      <header class="section-header">
+        <div class="section-label">Kontakt</div>
+        <h2 class="section-title">So erreichen Sie uns</h2>
+      </header>
+
+      <div class="section-grid cols-2">
+        <article class="card">
+          <h3>Adresse & Kontakt</h3>
+          <ul class="info-list">
+            <li><div class="info-label">Adresse</div><div class="info-value">Musterstrasse 1<br>2500 Musterort</div></li>
+            <li><div class="info-label">Telefon</div><div class="info-value">+41 00 000 00 00</div></li>
+            <li><div class="info-label">E-Mail</div><div class="info-value">info@ihr-kmu.ch</div></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Öffnungszeiten</h3>
+          <ul class="info-list">
+            <li><div class="info-value">Mo–Fr · 07:30–12:00 / 13:30–17:00</div></li>
+            <li><div class="info-value">Sa nach Vereinbarung</div></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> Ihr KMU</div>
+    <nav class="footer-nav">
+      <a href="#start">Start</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function scrollToTarget(id) {
+      const el = document.querySelector(id);
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+
+    const navMain = document.querySelector('.nav-main');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    navItems.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.target;
+        scrollToTarget(target);
+        navItems.forEach(x => x.classList.remove("current"));
+        btn.classList.add("current");
+        navMain.classList.remove("open");
+      });
+    });
+
+    document.querySelector(".nav-toggle").addEventListener("click", () => {
+      navMain.classList.toggle("open");
+    });
+  </script>
+</body>
+</html>
