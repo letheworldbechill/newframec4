@@ -18,6 +18,40 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("clear4-palette", name);
   }
 
+
+  // =======================
+// ZOOM CONTROLS
+// =======================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.documentElement;
+  const zoomButtons = document.querySelectorAll(".zoom-btn");
+
+  // Default-Schriftgröße
+  const BASE_SIZE = 100; // entspricht 16px
+  let currentZoom = parseInt(localStorage.getItem("clear4-zoom")) || BASE_SIZE;
+
+  // Anwenden beim Laden
+  root.style.fontSize = currentZoom + "%";
+
+  zoomButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      zoomButtons.forEach(z => z.classList.remove("zoom-btn--active"));
+
+      const mode = btn.dataset.zoom;
+
+      if (mode === "small") currentZoom = Math.max(70, currentZoom - 10);
+      if (mode === "large") currentZoom = Math.min(160, currentZoom + 10);
+      if (mode === "reset") currentZoom = BASE_SIZE;
+
+      btn.classList.add("zoom-btn--active");
+
+      root.style.fontSize = currentZoom + "%";
+      localStorage.setItem("clear4-zoom", currentZoom);
+    });
+  });
+});
+
   // Mode anwenden
   function applyMode(mode) {
     html.setAttribute("data-color-mode", mode);
